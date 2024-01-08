@@ -12,25 +12,25 @@ suite of protocols that allow messaging providers to interoperate with one
 another.  This document lays out an overall architecture enumerating the MIMI
 protocols and how they work together to enable an overall messaging experience. 
     " name="description">
-<meta content="xml2rfc 3.18.0" name="generator">
+<meta content="xml2rfc 3.19.0" name="generator">
 <meta content="messaging" name="keyword">
 <meta content="end-to-end security" name="keyword">
 <meta content="draft-barnes-mimi-arch-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.18.0
-    Python 3.11.4
-    ConfigArgParse 1.5.3
+  xml2rfc 3.19.0
+    Python 3.11.6
+    ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.10.0
+    platformdirs 4.1.0
     pycountry 22.3.5
-    PyYAML 6.0
+    PyYAML 6.0.1
     requests 2.31.0
-    setuptools 67.7.2
+    setuptools 68.2.2
     six 1.16.0
-    wcwidth 0.2.6
+    wcwidth 0.2.12
 -->
 <link href="draft-barnes-mimi-arch.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -653,7 +653,7 @@ sub, sup {
 }
 #toc nav li {
   line-height: 1.3em;
-  margin: 0.75em 0;
+  margin: 2px 0;
   padding-left: 1.2em;
   text-indent: -1.2em;
 }
@@ -746,7 +746,7 @@ hr.addr {
     z-index: 2;
     top: 0;
     right: 0;
-    padding: 0;
+    padding: 1px 0 0 0;
     margin: 0;
     border-bottom: 1px solid #ccc;
     opacity: 0.6;
@@ -870,16 +870,13 @@ hr.addr {
     border-top: none;
     padding-top: 0;
   }
-  figure, pre {
+  figure, pre, .vcard {
     page-break-inside: avoid;
-  }
-  figure {
-    overflow: scroll;
   }
   h1, h2, h3, h4, h5, h6 {
     page-break-after: avoid;
   }
-  h2+*, h3+*, h4+*, h5+*, h6+* {
+  :is(h2, h3, h4, h5, h6)+*, dd {
     page-break-before: avoid;
   }
   pre {
@@ -892,6 +889,9 @@ hr.addr {
   }
   td {
     border-top: 1px solid #ddd;
+  }
+  .toplink {
+    display: none;
   }
 }
 
@@ -993,28 +993,6 @@ address div.right {
   text-align: right;
 }
 
-/* Give the table caption label the same styling as the figcaption */
-
-@media print {
-  .toplink {
-    display: none;
-  }
-
-  /* avoid overwriting the top border line with the ToC header */
-  #toc {
-    padding-top: 1px;
-  }
-
-  /* Avoid page breaks inside dl and author address entries */
-  dd {
-    page-break-before: avoid;
-  }
-  .vcard {
-    page-break-inside: avoid;
-  }
-
-}
-
 /* Dark mode. */
 @media (prefers-color-scheme: dark) {
 :root {
@@ -1051,11 +1029,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">MIMI Architecture</td>
-<td class="right">August 2023</td>
+<td class="right">January 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Barnes</td>
-<td class="center">Expires 1 March 2024</td>
+<td class="center">Expires 11 July 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1068,12 +1046,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-barnes-mimi-arch-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-08-29" class="published">29 August 2023</time>
+<time datetime="2024-01-08" class="published">8 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-03-01">1 March 2024</time></dd>
+<dd class="expires"><time datetime="2024-07-11">11 July 2024</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1125,7 +1103,7 @@ protocols and how they work together to enable an overall messaging experience.<
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 1 March 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1134,7 +1112,7 @@ protocols and how they work together to enable an overall messaging experience.<
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2023 IETF Trust and the persons identified as the
+            Copyright (c) 2024 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1170,7 +1148,7 @@ protocols and how they work together to enable an overall messaging experience.<
                 <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-end-to-end-security-state" class="internal xref">End-to-End Security State</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
-                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-membership" class="internal xref">Membership</a></p>
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-participants-and-members" class="internal xref">Participants and Members</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.3">
                 <p id="section-toc.1-1.4.2.3.1"><a href="#section-4.3" class="auto internal xref">4.3</a>.  <a href="#name-membership-changes" class="internal xref">Membership Changes</a></p>
@@ -1204,7 +1182,15 @@ protocols and how they work together to enable an overall messaging experience.<
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
             <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
@@ -1227,13 +1213,17 @@ facilitate communications among clients.  The core function of MIMI is enabling
 users to have messaging interactions across message providers.<a href="#section-1-1" class="pilcrow">¶</a></p>
 <p id="section-1-2">This overall goal breaks down into several sub-goals:<a href="#section-1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-1-3.1">Message formats that enable the user-level features of a messaging system<a href="#section-1-3.1" class="pilcrow">¶</a>
+<li class="normal" id="section-1-3.1">
+          <p id="section-1-3.1.1">Message formats that enable the user-level features of a messaging system<a href="#section-1-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-3.2">Tracking of state across multiple providers<a href="#section-1-3.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-1-3.2">
+          <p id="section-1-3.2.1">Tracking of state across multiple providers<a href="#section-1-3.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-3.3">End-to-end security of user messages<a href="#section-1-3.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-1-3.3">
+          <p id="section-1-3.3.1">End-to-end security of user messages<a href="#section-1-3.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-3.4">Transport of protocol messages among providers<a href="#section-1-3.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-1-3.4">
+          <p id="section-1-3.4.1">Transport of protocol messages among providers<a href="#section-1-3.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <p id="section-1-4">In this document, we describe the high-level functions of these protocols, and
@@ -1249,6 +1239,7 @@ how they work toegether to enable an overall messaging application.<a href="#sec
 "<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
 described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
 appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶</a></p>
+<p id="section-2-2">Terms are generally introduced in context, indicated by <em>emphasis</em>.<a href="#section-2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="overall-scope">
@@ -1262,11 +1253,14 @@ interactions.  Each human <em>user</em> is represented in the system by one or m
 to a single user.  Each provider is represented by a <em>server</em> (logically a
 single server, but possibly realized by multiple physical devices).<a href="#section-3-1" class="pilcrow">¶</a></p>
 <p id="section-3-2">Messaging interactions are organized around <em>rooms</em>.  All messaging interactions
-take place in the context of a room.  Rooms have associated membership lists (in
-terms of both users and clients) and policies about things like how the room may
-be joined and what capabilities each member has.<a href="#section-3-2" class="pilcrow">¶</a></p>
+take place in the context of a room.  (Some non-messaging interactions may take
+place outside of a room, such as operations to fetch information required to set
+up a room.)  Rooms have a notion of
+<em>user participation</em> as well as <em>client membership</em>, both tracked as lists.
+Rooms additionally have policies about things like how the room may be joined
+and what capabilities each member/participant has.<a href="#section-3-2" class="pilcrow">¶</a></p>
 <p id="section-3-3">The protocol interactions that drive a room unfold among the servers whose users
-are members of the room.  There is exactly one <em>hub</em> server for the room, which
+are participants in the room.  There is exactly one <em>hub</em> server for the room, which
 is in primary control of the room.  All other servers are known as <em>followers</em>.
 Follower servers interact directly with the hub server.  Interactions between
 clients occur indirectly, via the servers for the clients' providers.<a href="#section-3-3" class="pilcrow">¶</a></p>
@@ -1453,37 +1447,155 @@ clients occur indirectly, via the servers for the clients' providers.<a href="#s
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-room-state" class="section-name selfRef">Room State</a>
       </h2>
 <p id="section-4-1">A room represnts a messaging interaction among a specific set of clients, with a
-single <em>state</em>.  At any given time, all of the clients and servers participating
-in the room have the same view of the room's state.  Changes to the room's state
-can be proposed by either clients or servers, though as dicussed in <a href="#policy" class="auto internal xref">Section 4.4</a>,
-one important aspect of the room's state is an authorization policy that
-determines which actors are allowed to make which changes.<a href="#section-4-1" class="pilcrow">¶</a></p>
+single <em>state</em>.  A major goal of the MIMI protocols is to syncrhonize the state
+of a room across all of the servers and clients participating in the room.
+Changes to the room's state can be proposed by either clients or servers, though
+as dicussed in <a href="#policy" class="auto internal xref">Section 4.4</a>, one important aspect of the room's state is an
+authorization policy that determines which actors are allowed to make which
+changes.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <p id="section-4-2">The creation of a room is a local operation on the hub server, and thus outside
 the scope of MIMI.  The hub server establishes the initial state of the room.<a href="#section-4-2" class="pilcrow">¶</a></p>
 <p id="section-4-3">The state of the room includes a few types of information, most importantly:<a href="#section-4-3" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4-4.1">The end-to-end security state of the room<a href="#section-4-4.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4-4.1">
+          <p id="section-4-4.1.1">The end-to-end security state of the room<a href="#section-4-4.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-4-4.2">The user-level membership of the room<a href="#section-4-4.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-4-4.2">
+          <p id="section-4-4.2.1">The user-level participation state of the room<a href="#section-4-4.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-4-4.3">The authorization policy for the room<a href="#section-4-4.3" class="pilcrow">¶</a>
-</li>
-      </ul>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-4-5.1">
-          <p id="section-4-5.1.1">NOTE: We use the phrase "membership" for both users and clients.  It might be
-clearer to invent some distinct terminology for these notions.<a href="#section-4-5.1.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-4-4.3">
+          <p id="section-4-4.3.1">The authorization policy for the room<a href="#section-4-4.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-4-6.1">
-          <p id="section-4-6.1.1">NOTE: In the below, we discuss user-level membership as something independent
-from, and managed separately from, the end-to-end security state of the room.
-Another possibility is that the user-level membership could be derived from
-the client-level membership, in the sense that a user is a member if and only
-if they have one or more clients joined.<a href="#section-4-6.1.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
+<span id="name-elements-of-the-room-state"></span><div id="fig-room-state">
+<figure id="figure-2">
+        <div id="section-4-5.1">
+          <div class="alignLeft art-svg artwork" id="section-4-5.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="384" width="552" viewBox="0 0 552 384" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+              <path d="M 8,32 L 8,368" fill="none" stroke="black"></path>
+              <path d="M 160,32 L 160,120" fill="none" stroke="black"></path>
+              <path d="M 160,136 L 160,184" fill="none" stroke="black"></path>
+              <path d="M 160,200 L 160,312" fill="none" stroke="black"></path>
+              <path d="M 160,328 L 160,368" fill="none" stroke="black"></path>
+              <path d="M 192,32 L 192,120" fill="none" stroke="black"></path>
+              <path d="M 192,136 L 192,184" fill="none" stroke="black"></path>
+              <path d="M 192,200 L 192,312" fill="none" stroke="black"></path>
+              <path d="M 192,328 L 192,368" fill="none" stroke="black"></path>
+              <path d="M 384,32 L 384,120" fill="none" stroke="black"></path>
+              <path d="M 384,136 L 384,184" fill="none" stroke="black"></path>
+              <path d="M 384,200 L 384,368" fill="none" stroke="black"></path>
+              <path d="M 400,192 L 400,256" fill="none" stroke="black"></path>
+              <path d="M 416,32 L 416,120" fill="none" stroke="black"></path>
+              <path d="M 416,136 L 416,184" fill="none" stroke="black"></path>
+              <path d="M 416,200 L 416,248" fill="none" stroke="black"></path>
+              <path d="M 416,264 L 416,368" fill="none" stroke="black"></path>
+              <path d="M 544,32 L 544,368" fill="none" stroke="black"></path>
+              <path d="M 8,32 L 160,32" fill="none" stroke="black"></path>
+              <path d="M 192,32 L 384,32" fill="none" stroke="black"></path>
+              <path d="M 416,32 L 544,32" fill="none" stroke="black"></path>
+              <path d="M 40,112 L 128,112" fill="none" stroke="black"></path>
+              <path d="M 224,112 L 352,112" fill="none" stroke="black"></path>
+              <path d="M 448,112 L 512,112" fill="none" stroke="black"></path>
+              <path d="M 144,128 L 208,128" fill="none" stroke="black"></path>
+              <path d="M 368,128 L 432,128" fill="none" stroke="black"></path>
+              <path d="M 40,144 L 128,144" fill="none" stroke="black"></path>
+              <path d="M 224,144 L 352,144" fill="none" stroke="black"></path>
+              <path d="M 448,144 L 512,144" fill="none" stroke="black"></path>
+              <path d="M 40,176 L 128,176" fill="none" stroke="black"></path>
+              <path d="M 224,176 L 352,176" fill="none" stroke="black"></path>
+              <path d="M 448,176 L 512,176" fill="none" stroke="black"></path>
+              <path d="M 144,192 L 208,192" fill="none" stroke="black"></path>
+              <path d="M 368,192 L 432,192" fill="none" stroke="black"></path>
+              <path d="M 40,208 L 128,208" fill="none" stroke="black"></path>
+              <path d="M 224,208 L 352,208" fill="none" stroke="black"></path>
+              <path d="M 448,208 L 512,208" fill="none" stroke="black"></path>
+              <path d="M 448,240 L 512,240" fill="none" stroke="black"></path>
+              <path d="M 400,256 L 432,256" fill="none" stroke="black"></path>
+              <path d="M 448,272 L 512,272" fill="none" stroke="black"></path>
+              <path d="M 40,304 L 128,304" fill="none" stroke="black"></path>
+              <path d="M 224,304 L 352,304" fill="none" stroke="black"></path>
+              <path d="M 144,320 L 208,320" fill="none" stroke="black"></path>
+              <path d="M 40,336 L 128,336" fill="none" stroke="black"></path>
+              <path d="M 224,336 L 352,336" fill="none" stroke="black"></path>
+              <path d="M 8,368 L 160,368" fill="none" stroke="black"></path>
+              <path d="M 192,368 L 384,368" fill="none" stroke="black"></path>
+              <path d="M 416,368 L 544,368" fill="none" stroke="black"></path>
+              <path d="M 40,112 C 31.16936,112 24,119.16936 24,128" fill="none" stroke="black"></path>
+              <path d="M 128,112 C 136.83064,112 144,119.16936 144,128" fill="none" stroke="black"></path>
+              <path d="M 224,112 C 215.16936,112 208,119.16936 208,128" fill="none" stroke="black"></path>
+              <path d="M 352,112 C 360.83064,112 368,119.16936 368,128" fill="none" stroke="black"></path>
+              <path d="M 448,112 C 439.16936,112 432,119.16936 432,128" fill="none" stroke="black"></path>
+              <path d="M 512,112 C 520.83064,112 528,119.16936 528,128" fill="none" stroke="black"></path>
+              <path d="M 40,144 C 31.16936,144 24,136.83064 24,128" fill="none" stroke="black"></path>
+              <path d="M 128,144 C 136.83064,144 144,136.83064 144,128" fill="none" stroke="black"></path>
+              <path d="M 224,144 C 215.16936,144 208,136.83064 208,128" fill="none" stroke="black"></path>
+              <path d="M 352,144 C 360.83064,144 368,136.83064 368,128" fill="none" stroke="black"></path>
+              <path d="M 448,144 C 439.16936,144 432,136.83064 432,128" fill="none" stroke="black"></path>
+              <path d="M 512,144 C 520.83064,144 528,136.83064 528,128" fill="none" stroke="black"></path>
+              <path d="M 40,176 C 31.16936,176 24,183.16936 24,192" fill="none" stroke="black"></path>
+              <path d="M 128,176 C 136.83064,176 144,183.16936 144,192" fill="none" stroke="black"></path>
+              <path d="M 224,176 C 215.16936,176 208,183.16936 208,192" fill="none" stroke="black"></path>
+              <path d="M 352,176 C 360.83064,176 368,183.16936 368,192" fill="none" stroke="black"></path>
+              <path d="M 448,176 C 439.16936,176 432,183.16936 432,192" fill="none" stroke="black"></path>
+              <path d="M 512,176 C 520.83064,176 528,183.16936 528,192" fill="none" stroke="black"></path>
+              <path d="M 40,208 C 31.16936,208 24,200.83064 24,192" fill="none" stroke="black"></path>
+              <path d="M 128,208 C 136.83064,208 144,200.83064 144,192" fill="none" stroke="black"></path>
+              <path d="M 224,208 C 215.16936,208 208,200.83064 208,192" fill="none" stroke="black"></path>
+              <path d="M 352,208 C 360.83064,208 368,200.83064 368,192" fill="none" stroke="black"></path>
+              <path d="M 448,208 C 439.16936,208 432,200.83064 432,192" fill="none" stroke="black"></path>
+              <path d="M 512,208 C 520.83064,208 528,200.83064 528,192" fill="none" stroke="black"></path>
+              <path d="M 448,240 C 439.16936,240 432,247.16936 432,256" fill="none" stroke="black"></path>
+              <path d="M 512,240 C 520.83064,240 528,247.16936 528,256" fill="none" stroke="black"></path>
+              <path d="M 448,272 C 439.16936,272 432,264.83064 432,256" fill="none" stroke="black"></path>
+              <path d="M 512,272 C 520.83064,272 528,264.83064 528,256" fill="none" stroke="black"></path>
+              <path d="M 40,304 C 31.16936,304 24,311.16936 24,320" fill="none" stroke="black"></path>
+              <path d="M 128,304 C 136.83064,304 144,311.16936 144,320" fill="none" stroke="black"></path>
+              <path d="M 224,304 C 215.16936,304 208,311.16936 208,320" fill="none" stroke="black"></path>
+              <path d="M 352,304 C 360.83064,304 368,311.16936 368,320" fill="none" stroke="black"></path>
+              <path d="M 40,336 C 31.16936,336 24,328.83064 24,320" fill="none" stroke="black"></path>
+              <path d="M 128,336 C 136.83064,336 144,328.83064 144,320" fill="none" stroke="black"></path>
+              <path d="M 224,336 C 215.16936,336 208,328.83064 208,320" fill="none" stroke="black"></path>
+              <path d="M 352,336 C 360.83064,336 368,328.83064 368,320" fill="none" stroke="black"></path>
+              <g class="text">
+                <text x="80" y="68">Authorization</text>
+                <text x="272" y="68">Participant</text>
+                <text x="340" y="68">List</text>
+                <text x="440" y="68">E2E</text>
+                <text x="492" y="68">Security</text>
+                <text x="84" y="84">Policy</text>
+                <text x="480" y="84">State</text>
+                <text x="52" y="132">User</text>
+                <text x="80" y="132">1</text>
+                <text x="112" y="132">Capas</text>
+                <text x="244" y="132">User</text>
+                <text x="272" y="132">1</text>
+                <text x="316" y="132">(active)</text>
+                <text x="468" y="132">Client</text>
+                <text x="508" y="132">1a</text>
+                <text x="52" y="196">User</text>
+                <text x="80" y="196">2</text>
+                <text x="112" y="196">Capas</text>
+                <text x="244" y="196">User</text>
+                <text x="272" y="196">2</text>
+                <text x="316" y="196">(active)</text>
+                <text x="468" y="196">Client</text>
+                <text x="508" y="196">2a</text>
+                <text x="468" y="260">Client</text>
+                <text x="508" y="260">2b</text>
+                <text x="52" y="324">User</text>
+                <text x="80" y="324">2</text>
+                <text x="112" y="324">Capas</text>
+                <text x="236" y="324">User</text>
+                <text x="264" y="324">2</text>
+                <text x="316" y="324">(inactive)</text>
+              </g>
+            </svg><a href="#section-4-5.1.1" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<a href="#name-elements-of-the-room-state" class="selfRef">Elements of the Room State</a>
+        </figcaption></figure>
+</div>
 <div id="end-to-end-security-state">
 <section id="section-4.1">
         <h3 id="name-end-to-end-security-state">
@@ -1496,7 +1608,7 @@ provisioned to any client from which a user can interact with the room.  The
 state of this end-to-end security protocol thus represents the precise set of
 clients that can send and receive messages in the room, the most precise notion
 of membership for a room.  A client that has the required keys for end-to-end
-security is said to be <em>joined</em> to the end-to-end security state of the room.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+security is said to be a member of the end-to-end security state of the room.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">The end-to-end security state of a room has public and private aspects.  Servers
 may store the public aspects of the end-to-end security state, such as
 identities and credentials presented by the clients in the room.  The private
@@ -1504,24 +1616,35 @@ aspects of the group, such as the symmetric encryption keys, are known only to
 the clients.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="membership">
+<div id="participants-and-members">
 <section id="section-4.2">
-        <h3 id="name-membership">
-<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-membership" class="section-name selfRef">Membership</a>
+        <h3 id="name-participants-and-members">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-participants-and-members" class="section-name selfRef">Participants and Members</a>
         </h3>
-<p id="section-4.2-1">The membership of a room is the set of users who are allowed to participate in
-the room in some way.  The specific list of ways in which a user may
+<p id="section-4.2-1">The <em>participant list</em> for a room is the set of users who are allowed to interact
+with the room in some way.  The specific list of ways in which a user may
 participate is defined by authorization policy, as discussed in <a href="#policy" class="auto internal xref">Section 4.4</a>.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.2-2">This is a more coarse-grained notion of membership than the client-level notion.
-Ideally, the two are aligned, with each member user having at least one client
-joined to the end-to-end security state, and each joined client owned by a
-member user.  A user may be a member of a group without any client belonging to
-the user being part of the end-to-end security state of the room.  (In such a
-case, a user will not be able to read or send messages, but may be able to take
-other actions.  It is up to client implementations how this state is
-represented) The reverse situation is forbidden; a client belonging to a user
-may be joined to the end-to-end security state of the room only if its user is a
-member.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.2-2">Note the parallel terminology with regard to inclusion of clients or users in
+the room:<a href="#section-4.2-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.2-3.1">
+            <p id="section-4.2-3.1.1">A <em>client</em> is a <em>member</em> of the <em>end-to-end security state</em> of the room<a href="#section-4.2-3.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-4.2-3.2">
+            <p id="section-4.2-3.2.1">A <em>user</em> is a <em>participant</em> in the room<a href="#section-4.2-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-4.2-4">The user-level <em>participant list</em> and the client-level <em>membership</em> of the room
+are distinct entities managed by separate protocols, but they must be consistent
+with each other.  A client may be a member of the E2EE state of a room only if
+its user is a participant in the room.  However, a user may be a participant in
+a room without any client belonging to the user being part of the end-to-end
+security state of the room.  (Such a user will not be able to read or send
+messages, but may be able to take other actions.  It is up to client
+implementations how this state is represented.)<a href="#section-4.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.2-5">A user with at least one client joined to the end-to-end security state of the
+room is known as an <em>active user</em>, since such a user can fully participate in
+the room.<a href="#section-4.2-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="membership-changes">
@@ -1529,12 +1652,12 @@ member.<a href="#section-4.2-2" class="pilcrow">¶</a></p>
         <h3 id="name-membership-changes">
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-membership-changes" class="section-name selfRef">Membership Changes</a>
         </h3>
-<p id="section-4.3-1">The membership of a group can change over time, via <em>add</em> and <em>remove</em>
+<p id="section-4.3-1">The participant list and client membership of a group can change over time, via <em>add</em> and <em>remove</em>
 operations at both the user level and the client level.  These operations are
 independent at the protocol level: For example, a user may be added to a room
 before any of its clients are available to join, or a user may begin using a new
-device (adding the device without changing the user-level membership).<a href="#section-4.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.3-2">As discussed above, user-level and client-level membership must be kept in sync.
+device (adding the device without changing the user-level participation).<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-2">As discussed above, user-level participation and client-level membership must be kept in sync.
 When a user is added, some set of their clients should be added as well; when a
 user leaves or is evicted, any clients joined to the room should be removed.
 The cryptographic constraints of end-to-end security protocols mean that servers
@@ -1551,17 +1674,21 @@ of state in sync.<a href="#section-4.3-2" class="pilcrow">¶</a></p>
 authorized for the room while the policy is in effect.  The policy defines
 several aspects of the room's behavior, for example:<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.4-2.1">Admission policy: Do new members need to be explicitly added by a current
-member of the room, or can some set of users join unilaterally?<a href="#section-4.4-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.4-2.1">
+            <p id="section-4.4-2.1.1">Admission policy: Do new members need to be explicitly added by a current
+member of the room, or can some set of users join unilaterally?<a href="#section-4.4-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-4.4-2.2">
             <p id="section-4.4-2.2.1">Capabilities per user: Is a given user allowed to ...<a href="#section-4.4-2.2.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.4-2.2.2.1">Send messages in the room?<a href="#section-4.4-2.2.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.4-2.2.2.1">
+                <p id="section-4.4-2.2.2.1.1">Send messages in the room?<a href="#section-4.4-2.2.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-4.4-2.2.2.2">Add or remove other users?<a href="#section-4.4-2.2.2.2" class="pilcrow">¶</a>
+              <li class="normal" id="section-4.4-2.2.2.2">
+                <p id="section-4.4-2.2.2.2.1">Add or remove other users?<a href="#section-4.4-2.2.2.2.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-4.4-2.2.2.3">Grant or deny capabilities to other users?<a href="#section-4.4-2.2.2.3" class="pilcrow">¶</a>
+              <li class="normal" id="section-4.4-2.2.2.3">
+                <p id="section-4.4-2.2.2.3.1">Grant or deny capabilities to other users?<a href="#section-4.4-2.2.2.3.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -1569,9 +1696,11 @@ member of the room, or can some set of users join unilaterally?<a href="#section
             <p id="section-4.4-2.3.1">Capabilities per server: Is a given server participating in the room allowed
 to...<a href="#section-4.4-2.3.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.4-2.3.2.1">Add or remove users?<a href="#section-4.4-2.3.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-4.4-2.3.2.1">
+                <p id="section-4.4-2.3.2.1.1">Add or remove users?<a href="#section-4.4-2.3.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-4.4-2.3.2.2">Grant or deny capabilities to users?<a href="#section-4.4-2.3.2.2" class="pilcrow">¶</a>
+              <li class="normal" id="section-4.4-2.3.2.2">
+                <p id="section-4.4-2.3.2.2.1">Grant or deny capabilities to users?<a href="#section-4.4-2.3.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -1593,7 +1722,7 @@ participating clients/servers should also reject the event.<a href="#section-4.4
       <h2 id="name-protocols">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-protocols" class="section-name selfRef">Protocols</a>
       </h2>
-<p id="section-5-1">As shown in <a href="#fig-protocols" class="auto internal xref">Figure 2</a>, MIMI protocols define server-to-server interactions and
+<p id="section-5-1">As shown in <a href="#fig-protocols" class="auto internal xref">Figure 3</a>, MIMI protocols define server-to-server interactions and
 client-to-client interactions.  Each client interacts with the overall system by
 means of its provider's server (whether hub or follower).  Client-to-client
 interactions are done by means of these servers.<a href="#section-5-1" class="pilcrow">¶</a></p>
@@ -1606,18 +1735,21 @@ message forwarding and control protocols leverage a common framework for sharing
 <em>events</em> among servers.<a href="#section-5-2" class="pilcrow">¶</a></p>
 <p id="section-5-3">Note that some parts of the overall system are explicitly out of scope for MIMI.
 Namely, client-server interactions internal to a provider (indicated by
-"(Provider)" in <a href="#fig-protocols" class="auto internal xref">Figure 2</a>) can be arranged however the provider likes.<a href="#section-5-3" class="pilcrow">¶</a></p>
+"(Provider)" in <a href="#fig-protocols" class="auto internal xref">Figure 3</a>) can be arranged however the provider likes.<a href="#section-5-3" class="pilcrow">¶</a></p>
 <p id="section-5-4">A MIMI server thus participates in a few classes of protocols:<a href="#section-5-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5-5.1">A transport protocol<a href="#section-5-5.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5-5.1">
+          <p id="section-5-5.1.1">A transport protocol<a href="#section-5-5.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-5.2">Control protocols<a href="#section-5-5.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-5-5.2">
+          <p id="section-5-5.2.1">Control protocols<a href="#section-5-5.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-5.3">A message forwarding protocol<a href="#section-5-5.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-5-5.3">
+          <p id="section-5-5.3.1">A message forwarding protocol<a href="#section-5-5.3.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 <span id="name-mimi-protocols"></span><div id="fig-protocols">
-<figure id="figure-2">
+<figure id="figure-3">
         <div id="section-5-6.1">
           <div class="alignLeft art-svg artwork" id="section-5-6.1.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="320" width="520" viewBox="0 0 520 320" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
@@ -1686,7 +1818,7 @@ Namely, client-server interactions internal to a provider (indicated by
             </svg><a href="#section-5-6.1.1" class="pilcrow">¶</a>
 </div>
 </div>
-<figcaption><a href="#figure-2" class="selfRef">Figure 2</a>:
+<figcaption><a href="#figure-3" class="selfRef">Figure 3</a>:
 <a href="#name-mimi-protocols" class="selfRef">MIMI Protocols</a>
         </figcaption></figure>
 </div>
@@ -1699,10 +1831,10 @@ Namely, client-server interactions internal to a provider (indicated by
 two types:<a href="#section-5.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.1-2.1">
-            <strong>State events</strong>, which make changes to the room state<a href="#section-5.1-2.1" class="pilcrow">¶</a>
+            <p id="section-5.1-2.1.1"><strong>State events</strong>, which make changes to the room state<a href="#section-5.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.1-2.2">
-            <strong>Message events</strong>, which describe actual messaging activity in the room<a href="#section-5.1-2.2" class="pilcrow">¶</a>
+            <p id="section-5.1-2.2.1"><strong>Message events</strong>, which describe actual messaging activity in the room<a href="#section-5.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-5.1-3">Each event originates at one of the servers participating in the room (possibly
@@ -1713,7 +1845,7 @@ servers.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 participating servers can verify its origin, even those to whom the event has
 been distributed by the hub.  If an event was ultimately created by a client, it
 is also authenticated by the client that created it.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">The MIMI transport protocol defines this event framework, including its
+<p id="section-5.1-5">The overall MIMI protocol defines this event framework, including its
 authentication scheme, as well as the mechanics of how events are delivered from
 one server to another.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
 </section>
@@ -1731,9 +1863,9 @@ separate control protocol for each type of information.<a href="#section-5.2-1" 
 <p id="section-5.2-2">The <strong>policy control protocol</strong> distributes information about the policy
 envelope of a room, and allows participants in a room to propose changes to the
 policy within that envelope.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<p id="section-5.2-3">The <strong>membership control protocol</strong> manages the user-level membership of the
+<p id="section-5.2-3">The <strong>participation control protocol</strong> manages the user-level membership of the
 room, including the various ways that members might join or leave a room (or be
-added/removed by other members).<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+added/removed by other users).<a href="#section-5.2-3" class="pilcrow">¶</a></p>
 <p id="section-5.2-4">The <strong>end-to-end security control protocol</strong> manages the end-to-end security
 state of the room.  In addition to distributing messages that add or remove
 clients from the end-to-end security state, this protocol also allows servers
@@ -1750,23 +1882,166 @@ allows clients to be asynchronously added to rooms.<a href="#section-5.2-4" clas
 the standard MIMI content format.  The end-to-end encapsuation ensures that the
 message content is only accessible to the clients participating in the room, not
 the servers that help to distribute it.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
-<p id="section-5.3-2">The MIMI message format defines how clients achieve the various features of a
-messaging application, for example:<a href="#section-5.3-2" class="pilcrow">¶</a></p>
+<p id="section-5.3-2">The MIMI message format <span>[<a href="#I-D.ietf-mimi-content" class="cite xref">I-D.ietf-mimi-content</a>]</span> defines how clients achieve
+the various features of a messaging application, for example:<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5.3-3.1">Text messaging<a href="#section-5.3-3.1" class="pilcrow">¶</a>
+<li class="normal" id="section-5.3-3.1">
+            <p id="section-5.3-3.1.1">Text messaging<a href="#section-5.3-3.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.3-3.2">File attachements<a href="#section-5.3-3.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.3-3.2">
+            <p id="section-5.3-3.2.1">File attachements<a href="#section-5.3-3.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.3-3.3">Replies<a href="#section-5.3-3.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.3-3.3">
+            <p id="section-5.3-3.3.1">Replies<a href="#section-5.3-3.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.3-3.4">Reactions<a href="#section-5.3-3.4" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.3-3.4">
+            <p id="section-5.3-3.4.1">Reactions<a href="#section-5.3-3.4.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-5.3-3.5">Initiation of real-time sessions<a href="#section-5.3-3.5" class="pilcrow">¶</a>
+          <li class="normal" id="section-5.3-3.5">
+            <p id="section-5.3-3.5.1">Initiation of real-time sessions<a href="#section-5.3-3.5.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <p id="section-5.3-4">Messages transit MIMI servers by means of a <strong>message forwarding protocol</strong>,
 which carries an opaque, encrypted message payload together with enough metadata
 to facilitate delivery to the clients participating in a room.<a href="#section-5.3-4" class="pilcrow">¶</a></p>
+<span id="name-the-hub-fans-out-messages-t"></span><div id="fig-fanout">
+<figure id="figure-4">
+          <div id="section-5.3-5.1">
+            <div class="alignLeft art-svg artwork" id="section-5.3-5.1.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="448" width="504" viewBox="0 0 504 448" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px" stroke-linecap="round">
+                <path d="M 136,64 L 136,88" fill="none" stroke="black"></path>
+                <path d="M 136,104 L 136,128" fill="none" stroke="black"></path>
+                <path d="M 136,208 L 136,232" fill="none" stroke="black"></path>
+                <path d="M 136,248 L 136,272" fill="none" stroke="black"></path>
+                <path d="M 136,352 L 136,376" fill="none" stroke="black"></path>
+                <path d="M 136,392 L 136,416" fill="none" stroke="black"></path>
+                <path d="M 152,80 L 152,112" fill="none" stroke="black"></path>
+                <path d="M 152,224 L 152,256" fill="none" stroke="black"></path>
+                <path d="M 152,368 L 152,400" fill="none" stroke="black"></path>
+                <path d="M 240,80 L 240,112" fill="none" stroke="black"></path>
+                <path d="M 240,224 L 240,256" fill="none" stroke="black"></path>
+                <path d="M 240,368 L 240,400" fill="none" stroke="black"></path>
+                <path d="M 288,80 L 288,112" fill="none" stroke="black"></path>
+                <path d="M 288,224 L 288,256" fill="none" stroke="black"></path>
+                <path d="M 288,368 L 288,400" fill="none" stroke="black"></path>
+                <path d="M 344,120 L 344,216" fill="none" stroke="black"></path>
+                <path d="M 344,264 L 344,360" fill="none" stroke="black"></path>
+                <path d="M 376,112 L 376,216" fill="none" stroke="black"></path>
+                <path d="M 376,256 L 376,360" fill="none" stroke="black"></path>
+                <path d="M 392,80 L 392,112" fill="none" stroke="black"></path>
+                <path d="M 392,224 L 392,256" fill="none" stroke="black"></path>
+                <path d="M 392,368 L 392,400" fill="none" stroke="black"></path>
+                <path d="M 496,64 L 496,416" fill="none" stroke="black"></path>
+                <path d="M 152,48 L 304,48" fill="none" stroke="black"></path>
+                <path d="M 360,48 L 480,48" fill="none" stroke="black"></path>
+                <path d="M 24,80 L 56,80" fill="none" stroke="black"></path>
+                <path d="M 152,80 L 240,80" fill="none" stroke="black"></path>
+                <path d="M 288,80 L 392,80" fill="none" stroke="black"></path>
+                <path d="M 72,96 L 144,96" fill="none" stroke="black"></path>
+                <path d="M 240,96 L 280,96" fill="none" stroke="black"></path>
+                <path d="M 24,112 L 56,112" fill="none" stroke="black"></path>
+                <path d="M 152,112 L 240,112" fill="none" stroke="black"></path>
+                <path d="M 288,112 L 392,112" fill="none" stroke="black"></path>
+                <path d="M 152,144 L 304,144" fill="none" stroke="black"></path>
+                <path d="M 152,192 L 304,192" fill="none" stroke="black"></path>
+                <path d="M 24,224 L 40,224" fill="none" stroke="black"></path>
+                <path d="M 152,224 L 240,224" fill="none" stroke="black"></path>
+                <path d="M 288,224 L 392,224" fill="none" stroke="black"></path>
+                <path d="M 64,240 L 152,240" fill="none" stroke="black"></path>
+                <path d="M 248,240 L 288,240" fill="none" stroke="black"></path>
+                <path d="M 24,256 L 40,256" fill="none" stroke="black"></path>
+                <path d="M 152,256 L 240,256" fill="none" stroke="black"></path>
+                <path d="M 288,256 L 392,256" fill="none" stroke="black"></path>
+                <path d="M 152,288 L 304,288" fill="none" stroke="black"></path>
+                <path d="M 152,336 L 304,336" fill="none" stroke="black"></path>
+                <path d="M 24,368 L 72,368" fill="none" stroke="black"></path>
+                <path d="M 152,368 L 240,368" fill="none" stroke="black"></path>
+                <path d="M 288,368 L 392,368" fill="none" stroke="black"></path>
+                <path d="M 96,384 L 152,384" fill="none" stroke="black"></path>
+                <path d="M 248,384 L 288,384" fill="none" stroke="black"></path>
+                <path d="M 24,400 L 72,400" fill="none" stroke="black"></path>
+                <path d="M 152,400 L 240,400" fill="none" stroke="black"></path>
+                <path d="M 288,400 L 392,400" fill="none" stroke="black"></path>
+                <path d="M 152,432 L 304,432" fill="none" stroke="black"></path>
+                <path d="M 360,432 L 480,432" fill="none" stroke="black"></path>
+                <path d="M 152,48 C 143.16936,48 136,55.16936 136,64" fill="none" stroke="black"></path>
+                <path d="M 304,48 C 312.83064,48 320,55.16936 320,64" fill="none" stroke="black"></path>
+                <path d="M 360,48 C 351.16936,48 344,55.16936 344,64" fill="none" stroke="black"></path>
+                <path d="M 480,48 C 488.83064,48 496,55.16936 496,64" fill="none" stroke="black"></path>
+                <path d="M 24,80 C 15.16936,80 8,87.16936 8,96" fill="none" stroke="black"></path>
+                <path d="M 56,80 C 64.83064,80 72,87.16936 72,96" fill="none" stroke="black"></path>
+                <path d="M 24,112 C 15.16936,112 8,104.83064 8,96" fill="none" stroke="black"></path>
+                <path d="M 56,112 C 64.83064,112 72,104.83064 72,96" fill="none" stroke="black"></path>
+                <path d="M 152,144 C 143.16936,144 136,136.83064 136,128" fill="none" stroke="black"></path>
+                <path d="M 304,144 C 312.83064,144 320,136.83064 320,128" fill="none" stroke="black"></path>
+                <path d="M 152,192 C 143.16936,192 136,199.16936 136,208" fill="none" stroke="black"></path>
+                <path d="M 304,192 C 312.83064,192 320,199.16936 320,208" fill="none" stroke="black"></path>
+                <path d="M 24,224 C 15.16936,224 8,231.16936 8,240" fill="none" stroke="black"></path>
+                <path d="M 40,224 C 48.83064,224 56,231.16936 56,240" fill="none" stroke="black"></path>
+                <path d="M 24,256 C 15.16936,256 8,248.83064 8,240" fill="none" stroke="black"></path>
+                <path d="M 40,256 C 48.83064,256 56,248.83064 56,240" fill="none" stroke="black"></path>
+                <path d="M 152,288 C 143.16936,288 136,280.83064 136,272" fill="none" stroke="black"></path>
+                <path d="M 304,288 C 312.83064,288 320,280.83064 320,272" fill="none" stroke="black"></path>
+                <path d="M 152,336 C 143.16936,336 136,343.16936 136,352" fill="none" stroke="black"></path>
+                <path d="M 304,336 C 312.83064,336 320,343.16936 320,352" fill="none" stroke="black"></path>
+                <path d="M 24,368 C 15.16936,368 8,375.16936 8,384" fill="none" stroke="black"></path>
+                <path d="M 72,368 C 80.83064,368 88,375.16936 88,384" fill="none" stroke="black"></path>
+                <path d="M 24,400 C 15.16936,400 8,392.83064 8,384" fill="none" stroke="black"></path>
+                <path d="M 72,400 C 80.83064,400 88,392.83064 88,384" fill="none" stroke="black"></path>
+                <path d="M 152,432 C 143.16936,432 136,424.83064 136,416" fill="none" stroke="black"></path>
+                <path d="M 304,432 C 312.83064,432 320,424.83064 320,416" fill="none" stroke="black"></path>
+                <path d="M 360,432 C 351.16936,432 344,424.83064 344,416" fill="none" stroke="black"></path>
+                <path d="M 480,432 C 488.83064,432 496,424.83064 496,416" fill="none" stroke="black"></path>
+                <polygon class="arrowhead" points="384,360 372,354.4 372,365.6" fill="black" transform="rotate(90,376,360)"></polygon>
+                <polygon class="arrowhead" points="384,216 372,210.4 372,221.6" fill="black" transform="rotate(90,376,216)"></polygon>
+                <polygon class="arrowhead" points="288,96 276,90.4 276,101.6" fill="black" transform="rotate(0,280,96)"></polygon>
+                <polygon class="arrowhead" points="256,384 244,378.4 244,389.6" fill="black" transform="rotate(180,248,384)"></polygon>
+                <polygon class="arrowhead" points="256,240 244,234.4 244,245.6" fill="black" transform="rotate(180,248,240)"></polygon>
+                <polygon class="arrowhead" points="152,96 140,90.4 140,101.6" fill="black" transform="rotate(0,144,96)"></polygon>
+                <polygon class="arrowhead" points="104,384 92,378.4 92,389.6" fill="black" transform="rotate(180,96,384)"></polygon>
+                <polygon class="arrowhead" points="72,240 60,234.4 60,245.6" fill="black" transform="rotate(180,64,240)"></polygon>
+                <g class="text">
+                  <text x="40" y="36">Users</text>
+                  <text x="188" y="36">Provider</text>
+                  <text x="232" y="36">X</text>
+                  <text x="380" y="36">Room</text>
+                  <text x="416" y="36">123</text>
+                  <text x="40" y="100">Alice</text>
+                  <text x="188" y="100">Client</text>
+                  <text x="224" y="100">A</text>
+                  <text x="332" y="100">Server</text>
+                  <text x="368" y="100">1</text>
+                  <text x="444" y="100">(Follower)</text>
+                  <text x="188" y="180">Provider</text>
+                  <text x="232" y="180">Y</text>
+                  <text x="32" y="244">Bob</text>
+                  <text x="188" y="244">Client</text>
+                  <text x="224" y="244">B</text>
+                  <text x="332" y="244">Server</text>
+                  <text x="368" y="244">2</text>
+                  <text x="424" y="244">(Hub)</text>
+                  <text x="188" y="324">Provider</text>
+                  <text x="232" y="324">Z</text>
+                  <text x="48" y="388">Charlie</text>
+                  <text x="188" y="388">Client</text>
+                  <text x="224" y="388">C</text>
+                  <text x="332" y="388">Server</text>
+                  <text x="368" y="388">3</text>
+                  <text x="444" y="388">(Follower)</text>
+                </g>
+              </svg><a href="#section-5.3-5.1.1" class="pilcrow">¶</a>
+</div>
+</div>
+<figcaption><a href="#figure-4" class="selfRef">Figure 4</a>:
+<a href="#name-the-hub-fans-out-messages-t" class="selfRef">The hub fans out messages to participating servers; servers deliver messages to users' clients.</a>
+          </figcaption></figure>
+</div>
+<p id="section-5.3-6">When a client sends a message, the message is delivered to its provider's server
+using some provider-internal mechanism.  If the provider is not the hub, then
+the server forwards the message to the hub for delivery.  In either case, the
+hub distributes the message to all of the servers participating in the room.
+Each provider's server then forwards the message to clients of users who are
+participating in the room.<a href="#section-5.3-6" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1776,42 +2051,29 @@ to facilitate delivery to the clients participating in a room.<a href="#section-
       <h2 id="name-actors-identifiers-and-auth">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-actors-identifiers-and-auth" class="section-name selfRef">Actors, Identifiers, and Authentication</a>
       </h2>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-6-1.1">
-          <p id="section-6-1.1.1">NOTE: This section is obsolete.  It should be rewritten to use concepts and
-terminology from draft-mahy-mimi-identity.<a href="#section-6-1.1.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-6-2">There are three types of identified actor in the MIMI system:<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-1">There are several types of entity to be identified in the MIMI system, including:<a href="#section-6-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-6-3.1">Servers,<a href="#section-6-3.1" class="pilcrow">¶</a>
+<li class="normal" id="section-6-2.1">
+          <p id="section-6-2.1.1">Rooms,<a href="#section-6-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-3.2">Users, and<a href="#section-6-3.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-2.2">
+          <p id="section-6-2.2.1">Servers,<a href="#section-6-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-6-3.3">Clients.<a href="#section-6-3.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-6-2.3">
+          <p id="section-6-2.3.1">Users, and<a href="#section-6-2.3.1" class="pilcrow">¶</a></p>
 </li>
-      </ul>
-<p id="section-6-4">A server's identity is effectively the identity of the provider it represents.
-Servers are represented by domain names <span>[<a href="#RFC1035" class="cite xref">RFC1035</a>]</span>.  User identities are
-provider-specific, and thus scoped to a given server identity.  Likewise, a
-client's identity is within the scope of its user.<a href="#section-6-4" class="pilcrow">¶</a></p>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-6-5.1">
-          <p id="section-6-5.1.1">TODO: Define syntax for these identifiers. Something like:<a href="#section-6-5.1.1" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-6-5.1.2.1">Server: <code>example.com</code><a href="#section-6-5.1.2.1" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-6-5.1.2.2">User: <code>@user@example.com</code><a href="#section-6-5.1.2.2" class="pilcrow">¶</a>
-</li>
-            <li class="normal" id="section-6-5.1.2.3">Client: <code>%device@user@example.com</code><a href="#section-6-5.1.2.3" class="pilcrow">¶</a>
-</li>
-          </ul>
+        <li class="normal" id="section-6-2.4">
+          <p id="section-6-2.4.1">Clients.<a href="#section-6-2.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-6-6">To facilitate the application of policies based on these identifiers to protocol
+<p id="section-6-3">A server's identity is effectively the identity of the provider it represents.
+A room is hosted by a single hub server at a given time, so its identity is
+within the scope of the hub server's identity.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">To facilitate the application of policies based on these identifiers to protocol
 actions, each actor presents one or more credentials that associate a signature
 key pair to their identifiers.  Protocol messages are then signed by their
-senders to authenticate the origin of the message.<a href="#section-6-6" class="pilcrow">¶</a></p>
+senders to authenticate the origin of the message.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-5">For a deeper discussion of identity, see <span>[<a href="#I-D.mahy-mimi-identity" class="cite xref">I-D.mahy-mimi-identity</a>]</span>.<a href="#section-6-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1821,13 +2083,17 @@ senders to authenticate the origin of the message.<a href="#section-6-6" class="
       </h2>
 <p id="section-7-1">TODO<a href="#section-7-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7-2.1">Authorization policy attached to a room<a href="#section-7-2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-7-2.1">
+          <p id="section-7-2.1.1">Authorization policy attached to a room<a href="#section-7-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-2.2">E2E security for messages provided by message delivery protocol<a href="#section-7-2.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-2.2">
+          <p id="section-7-2.2.1">E2E security for messages provided by message delivery protocol<a href="#section-7-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-2.3">E2E/E2M/M2E/M2M security for events provided by transport protocol<a href="#section-7-2.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-2.3">
+          <p id="section-7-2.3.1">E2E/E2M/M2E/M2M security for events provided by transport protocol<a href="#section-7-2.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-7-2.4">HbH security provided by TLS<a href="#section-7-2.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-7-2.4">
+          <p id="section-7-2.4.1">HbH security provided by TLS<a href="#section-7-2.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
 </section>
@@ -1841,23 +2107,43 @@ senders to authenticate the origin of the message.<a href="#section-6-6" class="
 </section>
 </div>
 <section id="section-9">
-      <h2 id="name-normative-references">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+      <h2 id="name-references">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<div id="sec-normative-references">
+<section id="section-9.1">
+        <h3 id="name-normative-references">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
-<dt id="RFC1035">[RFC1035]</dt>
-      <dd>
-<span class="refAuthor">Mockapetris, P.</span>, <span class="refTitle">"Domain names - implementation and specification"</span>, <span class="seriesInfo">STD 13</span>, <span class="seriesInfo">RFC 1035</span>, <span class="seriesInfo">DOI 10.17487/RFC1035</span>, <time datetime="1987-11" class="refDate">November 1987</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc1035">https://www.rfc-editor.org/rfc/rfc1035</a>&gt;</span>. </dd>
-<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-9.2">
+        <h3 id="name-informative-references">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="I-D.ietf-mimi-content">[I-D.ietf-mimi-content]</dt>
+        <dd>
+<span class="refAuthor">Mahy, R.</span>, <span class="refTitle">"More Instant Messaging Interoperability (MIMI) message content"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-mimi-content-01</span>, <time datetime="2023-10-23" class="refDate">23 October 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-mimi-content-01">https://datatracker.ietf.org/doc/html/draft-ietf-mimi-content-01</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.mahy-mimi-identity">[I-D.mahy-mimi-identity]</dt>
+      <dd>
+<span class="refAuthor">Mahy, R.</span>, <span class="refTitle">"More Instant Messaging Interoperability (MIMI) Identity Concepts"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-mahy-mimi-identity-02</span>, <time datetime="2023-07-10" class="refDate">10 July 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-mahy-mimi-identity-02">https://datatracker.ietf.org/doc/html/draft-mahy-mimi-identity-02</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
 </section>
 <div id="acknowledgments">
 <section id="appendix-A">
